@@ -10,7 +10,6 @@ import WXAppWebpackPlugin, { Targets } from 'wxapp-webpack-plugin';
 import StylelintPlugin from 'stylelint-webpack-plugin';
 import MinifyPlugin from 'babel-minify-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
-import VueLoaderPlugin from 'vue-loader/lib/plugin';
 import pkg from './package.json';
 import cdnConfig from './upyun.js';
 import { url } from 'inspector';
@@ -315,7 +314,6 @@ export default (env = {}) => {
 				// wx: isWechat ? 'wx' : 'my',
 				// my: isWechat ? 'wx' : 'my',
 			}),
-			new VueLoaderPlugin(),
 			new WXAppWebpackPlugin({
 				clear: !isDev,
         extensions: ['.js'],

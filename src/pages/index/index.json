@@ -1,6 +1,3 @@
 {
-  "navigationBarTitleText": "example-home",
-  "usingComponents": {
-    "user": "../../components/user"
-  }
+  "navigationBarTitleText": "example-home"
 }

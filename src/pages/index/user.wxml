@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="stage">当前环境: {{env.isWechat ? '微信':'支付宝'}}小程序</view>
+  <view class="stage">计数器数值：{{count}}</view>
+  <view>
+    <button bindtap="showUserInfo">显示用户信息</button>
+  </view>
+  <user name="呀哈哈" show="{{showUserComponent}}" @bindHide="hideUserInfo">
+  </user>
+</view>

@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container" hidden="{{!show}}">
   <view class="name">用户名：{{name}}</view>
-  <view class="score">积分：{{score}}</view>
+  <button bindtap="hideContainer">隐藏用户信息</button>
 </view>

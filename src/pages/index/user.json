@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "example-my",
+  "usingComponents": {
+    "user": "../../components/user/user"
+  }
+}

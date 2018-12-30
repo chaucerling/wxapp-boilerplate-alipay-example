@@ -16,11 +16,10 @@ test('development', () => {
 	expect(exist('app.json')).toBe(true);
 	expect(exist('app.wxss')).toBe(true);
 	expect(exist('common.js')).toBe(true);
-	expect(exist('wxml/motto/motto.wxml')).toBe(true);
 	expect(exist('pages/index/index.js')).toBe(true);
 	expect(exist('pages/index/index.wxml')).toBe(true);
 	expect(exist('pages/index/index.wxss')).toBe(true);
-	expect(exist('pages/logs/logs.js')).toBe(true);
-	expect(exist('pages/logs/logs.wxml')).toBe(true);
-	expect(exist('pages/logs/logs.wxss')).toBe(true);
+	expect(exist('pages/index/user.js')).toBe(true);
+	expect(exist('pages/index/user.wxml')).toBe(true);
+	expect(exist('pages/index/user.wxss')).toBe(true);
 });

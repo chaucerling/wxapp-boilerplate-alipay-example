@@ -1,6 +1,7 @@
 {
   "pages":[
-    "pages/index/index"
+    "pages/index/index",
+    "pages/index/user"
   ],
   "window":{
     "navigationBarTitleText": "example",
@@ -15,6 +16,11 @@
       "pagePath": "pages/index/index",
       "text": "首页",
       "iconPath": "./images/alipay/tab.png",
+      "selectedIconPath": "./images/alipay/active-tab.png"
+    },{
+      "pagePath": "pages/index/user",
+      "text": "我的",
+      "iconPath": "./images/tab.png",
       "selectedIconPath": "./images/alipay/active-tab.png"
     }],
     "backgroundColor": "#fff",

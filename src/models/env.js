@@ -1,4 +1,3 @@
-// const type = "wechat";
 const env = {
 	namespace: 'env',
 	state: {

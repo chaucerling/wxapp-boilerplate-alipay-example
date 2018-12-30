@@ -1,6 +1,20 @@
-Component({
+import miniappComponent from 'utils/component.js';
+
+let component = miniappComponent({
 	properties: {
-		name: String,
-		score: Number,
+		show: {
+			type: Boolean,
+			value: false,
+		},
+		name: {
+			type: String,
+			value: '',
+		},
+	},
+	methods: {
+		hideContainer() {
+			this.triggerEvent('hide');
+		},
 	},
 });
+Component(component);
