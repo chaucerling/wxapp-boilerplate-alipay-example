@@ -1,0 +1,4 @@
+<view class="container">
+  <view class="name">用户名：{{name}}</view>
+  <view class="score">积分：{{score}}</view>
+</view>

@@ -1,0 +1,23 @@
+{
+  "pages":[
+    "pages/index/index"
+  ],
+  "window":{
+    "navigationBarTitleText": "example",
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle":"black",
+    "backgroundColor": "#eeeeee",
+    "allowsBounceVertical": "NO"
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "./images/tab.png",
+      "selectedIconPath": "./images/active-tab.png"
+    }],
+    "backgroundColor": "#fff",
+    "selectedColor": "#EE2540"
+  }
+}

@@ -1,0 +1,29 @@
+// 初始化样式
+view, scroll-view, navigator, swiper, picker, input{
+  box-sizing: border-box;
+}
+view::hover{
+
+}
+button{
+  line-height: normal;
+}
+scroll-view{
+  width: auto;
+}
+form, picker{
+  display: block;
+}
+
+// 统一微信和支付宝的样式
+page{
+  background-color: #fff;
+}
+input{
+  padding: 0;
+  display:block;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:clip;
+  background-color: transparent;
+}
