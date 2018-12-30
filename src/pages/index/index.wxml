@@ -8,4 +8,6 @@
     <button bindtap='plus'>+</button>
     <button style='margin-left: 20rpx;' bindtap='sub'>-</button>
   </view>
+
+  <navigator url="/pages/index/user">userPage</navigator>
 </view>

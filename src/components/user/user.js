@@ -16,5 +16,21 @@ let component = miniappComponent({
 			this.triggerEvent('hide');
 		},
 	},
+	lifetimes: {
+		ready() {
+			console.info('component: lifetimes.ready call');
+		},
+		detached() {
+			console.info('component: lifetimes.detached call');
+		},
+	},
+	pageLifetimes: {
+		show() {
+			console.info('component: pageLifetimes.show call');
+		},
+		hide() {
+			console.info('component: pageLifetimes.hide call');
+		},
+	},
 });
 Component(component);

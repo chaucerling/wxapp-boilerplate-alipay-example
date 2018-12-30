@@ -288,7 +288,7 @@ const miniapp = {
 			if (options.current) {
 				options.current = options.urls.indexOf(options.current);
 			}
-			console.log(options.current);
+			// console.log(options.current);
 			return my.previewImage(options);
 		}
 	},

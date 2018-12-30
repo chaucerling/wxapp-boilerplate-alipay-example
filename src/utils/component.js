@@ -30,6 +30,9 @@ const miniappComponent = function (options) {
 		let moved = lifetimes.moved || methods.moved || options.moved || noop;
 		let detached = lifetimes.detached || methods.detached || options.detached || noop;
 		let pageLifetimes = options.pageLifetimes || {};
+		if (options.pageLifetimes) {
+			console.warn('page 首次加载不会触发 pageLifetimes.show，因为组件创建时才会注入方法到 onShow');
+		}
 		let pageOnShow = pageLifetimes.show || noop;
 		let pageOnHide = pageLifetimes.hide || noop;
 		newOptions.didMount = function (...args) {
@@ -49,15 +52,15 @@ const miniappComponent = function (options) {
 					option: eventOption,
 				});
 			};
-			let onShow = this.$page.onShow;
+			let onShow = this.$page.onShow || noop;
 			this.$page.onShow = function (...pageArgs) {
-				onShow.call(this, ...pageArgs);
 				pageOnShow.call(componentThis);
+				onShow.call(this, ...pageArgs);
 			};
-			let onHide = this.$page.onHide;
+			let onHide = this.$page.onHide || noop;
 			this.$page.onHide = function (...pageArgs) {
-				onHide.call(this, ...pageArgs);
 				pageOnHide.call(componentThis);
+				onHide.call(this, ...pageArgs);
 			};
 			created.call(this, ...args);
 			attached.call(this, ...args);
@@ -73,7 +76,7 @@ const miniappComponent = function (options) {
 		});
 		// console.log(options);
 		// Component(options);
-		return options;
+		return newOptions;
 	}
 };
 

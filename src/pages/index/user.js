@@ -7,6 +7,12 @@ let page = connector.connectPage({
 	data: {
 		showUserComponent: false,
 	},
+	onShow() {
+		console.log('page: onShow.call');
+	},
+	onHide() {
+		console.log('page: onHide.call');
+	},
 	showUserInfo() {
 		this.setData({showUserComponent: true});
 	},
