@@ -1,6 +1,6 @@
 # wxapp-boilerplate-alipay-example
 
-基于 [wxapp-boilerplate](https://raw.githubusercontent.com/cantonjs/wxapp-boilerplate) 脚手架 (2018-10-08 f763e71) ，添加了几个功能
+基于 [wxapp-boilerplate](https://github.com/cantonjs/wxapp-boilerplate) 脚手架 (2018-10-08 f763e71) ，添加了几个功能
 
 - api 封装，并提供对应的 promise 方法 (以微信为标准)
 - 自定义组件封装 (以微信为标准)
@@ -23,7 +23,7 @@
 
 ## 编译不同的 app.json
 
-因为微信和支付宝的 TabBar 设计规范是不一样的，需要配置两套不同的图片
+因为微信和支付宝的 TabBar 设计规范是不一样的，需要配置两套不同的图片
 
 在 `webpack.config.babel.js` 里配置 `appJsonFile` 的值，在 `copyPatterns` 里添加对应的图片文件路径
 
@@ -33,7 +33,7 @@
 
 使用替换文本的方式在编译时转换, 原生组件的事件 key 和 json 文件的 key 能自动转换
 
-自定义组件的事件 key 写法需要改成 `@bindXXXX ` (@bind后的第一个字母大写)，在组件里的调用方法不变
+自定义组件的事件 key 写法需要改成 `@bindXXXX ` (@bind后的第一个字母大写)，在组件里的调用方法不变
 
 ## 图片上传
 
