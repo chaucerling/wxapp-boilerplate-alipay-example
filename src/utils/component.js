@@ -21,12 +21,25 @@ const miniappComponent = function (options) {
 		return options;
 	}
 	if (__ALIPAY__) {
-		let created = options.created || noop;
-		options.didMount = function (...args) {
+		let newOptions = {};
+		let methods = options.methods || {};
+		let lifetimes = options.lifetimes || {};
+		let created = lifetimes.detached || methods.detached || options.detached || noop;
+		let attached = lifetimes.attached || methods.attached || options.attached || noop;
+		let ready = lifetimes.ready || methods.ready || options.ready || noop;
+		let moved = lifetimes.moved || methods.moved || options.moved || noop;
+		let detached = lifetimes.detached || methods.detached || options.detached || noop;
+		let pageLifetimes = options.pageLifetimes || {};
+		let pageOnShow = pageLifetimes.show || noop;
+		let pageOnHide = pageLifetimes.hide || noop;
+		newOptions.didMount = function (...args) {
+			let componentThis = this;
 			this.data = {
 				...this.data,
 				...this.props,
 			};
+			this.properties = this.data;
+			this.id = this.$id;
 			this.triggerEvent = (eventName, eventDetail, eventOption) => {
 				if (eventName.search(/^on/) < 0) {
 					eventName = 'on' + eventName.charAt(0).toUpperCase() + eventName.slice(1);
@@ -36,11 +49,27 @@ const miniappComponent = function (options) {
 					option: eventOption,
 				});
 			};
+			let onShow = this.$page.onShow;
+			this.$page.onShow = function (...pageArgs) {
+				onShow.call(this, ...pageArgs);
+				pageOnShow.call(componentThis);
+			};
+			let onHide = this.$page.onHide;
+			this.$page.onHide = function (...pageArgs) {
+				onHide.call(this, ...pageArgs);
+				pageOnHide.call(componentThis);
+			};
 			created.call(this, ...args);
+			attached.call(this, ...args);
+			ready.call(this, ...args);
 		};
-		options.props = {};
+		newOptions.didUpdate = moved;
+		newOptions.didUnmount = detached;
+		newOptions.methods = options.methods;
+		newOptions.data = options.methods;
+		newOptions.props = {};
 		Object.keys(options.properties || {}).map((k) => {
-			options.props[k] = options.properties[k].value;
+			newOptions.props[k] = options.properties[k].value;
 		});
 		// console.log(options);
 		// Component(options);
