@@ -8895,10 +8895,9 @@ write@^0.2.1:
   dependencies:
     mkdirp "^0.5.1"
 
-wxapp-webpack-plugin@^0.19.0:
+"wxapp-webpack-plugin@git://github.com/chaucerling/wxapp-webpack-plugin.git#baidu_build":
   version "0.19.0"
-  resolved "http://registry.npm.taobao.org/wxapp-webpack-plugin/download/wxapp-webpack-plugin-0.19.0.tgz#2bfcf5bb1aec3cbc5d6266462b264fa34f89f3be"
-  integrity sha1-K/z1uxrsPLxdYmZGKyZPo0+J874=
+  resolved "git://github.com/chaucerling/wxapp-webpack-plugin.git#5895264e1e2692f3d47c14a64b5376171649b893"
   dependencies:
     fs-extra "^3.0.1"
     globby "^6.1.0"
