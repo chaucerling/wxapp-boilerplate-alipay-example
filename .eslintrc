@@ -12,7 +12,8 @@
     "my": true,
     "getApp": true,
     "getCurrentPages": true,
-    "miniapp": true
+    "miniapp": true,
+    "Behavior": true
   },
   "rules": {
     "promise/catch-or-return": {

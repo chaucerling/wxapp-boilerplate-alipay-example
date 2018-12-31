@@ -24,7 +24,7 @@ const miniappComponent = function (options) {
 		let newOptions = {};
 		let methods = options.methods || {};
 		let lifetimes = options.lifetimes || {};
-		let created = lifetimes.detached || methods.detached || options.detached || noop;
+		let created = lifetimes.created || methods.created || options.created || noop;
 		let attached = lifetimes.attached || methods.attached || options.attached || noop;
 		let ready = lifetimes.ready || methods.ready || options.ready || noop;
 		let moved = lifetimes.moved || methods.moved || options.moved || noop;
@@ -70,6 +70,7 @@ const miniappComponent = function (options) {
 		newOptions.didUnmount = detached;
 		newOptions.methods = options.methods;
 		newOptions.data = options.methods;
+		newOptions.mixins = options.behaviors;
 		newOptions.props = {};
 		Object.keys(options.properties || {}).map((k) => {
 			newOptions.props[k] = options.properties[k].value;
@@ -80,6 +81,16 @@ const miniappComponent = function (options) {
 	}
 };
 
+const miniappBehavior = function (options) {
+	if (__WECHAT__) {
+		return Behavior(miniappComponent(options));
+	}
+	if (__ALIPAY__) {
+		return miniappComponent(options);
+	}
+};
+
 export {
 	miniappComponent as default,
+	miniappBehavior,
 };

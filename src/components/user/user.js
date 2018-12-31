@@ -1,6 +1,8 @@
 import miniappComponent from 'utils/component.js';
+import lifecycle from 'behaviors/lifecycle.js';
 
 let component = miniappComponent({
+	behaviors: [lifecycle],
 	properties: {
 		show: {
 			type: Boolean,
@@ -14,22 +16,6 @@ let component = miniappComponent({
 	methods: {
 		hideContainer() {
 			this.triggerEvent('hide');
-		},
-	},
-	lifetimes: {
-		ready() {
-			console.info('component: lifetimes.ready call');
-		},
-		detached() {
-			console.info('component: lifetimes.detached call');
-		},
-	},
-	pageLifetimes: {
-		show() {
-			console.info('component: pageLifetimes.show call');
-		},
-		hide() {
-			console.info('component: pageLifetimes.hide call');
 		},
 	},
 });

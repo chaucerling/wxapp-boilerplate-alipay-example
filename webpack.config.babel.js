@@ -334,7 +334,8 @@ export default (env = {}) => {
 			modules: [resolve(__dirname, 'src'), 'node_modules'],
 			alias: {
 				utils: require('path').resolve(__dirname, 'src/utils'),
-				components: require('path').resolve(__dirname, 'src/components'),
+        components: require('path').resolve(__dirname, 'src/components'),
+        behaviors: require('path').resolve(__dirname, 'src/components/behaviors'),
 				model: require('path').resolve(__dirname, 'src/models/model.js'),
 			},
 		},
