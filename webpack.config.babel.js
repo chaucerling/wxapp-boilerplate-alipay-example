@@ -31,11 +31,23 @@ const copyPatterns = []
 export default (env = {}) => {
 	const min = env.min;
 	const target = env.target || 'Wechat';
-	const isWechat = env.target !== 'Alipay';
-  const isAlipay = !isWechat;
+	const isWechat = env.target === 'Wechat';
+  const isAlipay = env.target === 'Alipay';
+  const isBaidu = env.target === 'Baidu';
 
   // 根据 target 编译不同的 json 文件
-  const appJsonFile = isWechat ? 'app.json' : 'alipay.json';
+  let appJsonFile, dist;
+  switch(target){
+    case 'Wechat':
+      appJsonFile = 'app.json';
+      dist = 'wechat';
+    case 'Alipay':
+      appJsonFile = 'alipay.json';
+      dist = 'alipay';
+    case 'Baidu':
+      appJsonFile = 'app.json';
+      dist = 'baidu';
+  }
   // 复制 json 配置里的图片
   if (isAlipay) {
     // copyPatterns.push({from: 'app.alipay.json', to: 'app.json', force: true});
@@ -67,7 +79,7 @@ export default (env = {}) => {
 		output: {
 			filename: '[name].js',
 			publicPath: '/',
-			path: resolve('dist', isWechat ? 'wechat' : 'alipay'),
+			path: resolve('dist', dist),
 		},
 		target: Targets[target],
 		module: {
@@ -92,7 +104,7 @@ export default (env = {}) => {
 					test: /\.(scss|wxss|acss)$/,
           include: /src/,
 					use: [
-						relativeFileLoader(isWechat ? 'wxss' : 'acss'),
+						relativeFileLoader(isWechat ? 'wxss' : isAlipay ? 'acss' : 'css'),
 						// cdn 路径
 						{
 							loader: 'string-replace-loader',
@@ -111,10 +123,10 @@ export default (env = {}) => {
 					],
 				},
 				{
-					test: /\.(html|wxml|axml)$/,
+					test: /\.(html|wxml|axml|swan)$/,
 					include: /src/,
 					use: [
-            relativeFileLoader(isWechat ? 'wxml' : 'axml'),
+            relativeFileLoader(isWechat ? 'wxml' : isAlipay ? 'axml' : 'swan'),
 						{
 							loader: 'wxml-loader',
 							options: {
@@ -141,12 +153,12 @@ export default (env = {}) => {
           },
         },
         // json 文件 key 替换
-				isWechat ? {} : {
+				{
 					test: /\.json$/,
 					include: /src/,
 					loader: 'string-replace-loader',
 					options: {
-						multiple: [
+						multiple: isWechat ? [] : isAlipay ? [
 							{
 								search: 'navigationBarTitleText',
 								replace: 'defaultTitle',
@@ -162,11 +174,6 @@ export default (env = {}) => {
 								replace: 'pullRefresh',
 								flags: 'g',
 							},
-							{
-								search: 'usingComponents',
-								replace: 'usingComponents',
-								flags: 'g',
-              },
               {
                 search: 'list',
 								replace: 'items',
@@ -187,120 +194,101 @@ export default (env = {}) => {
 								replace: 'activeIcon',
 								flags: 'g',
               }
-						],
+						] : [],
 					},
 				},
 				// wxml 文件 key 替换
-				isWechat ? {
-          test: /\.(html|wxml|axml)$/,
+				{
+          test: /\.(html|wxml|axml|swan)$/,
 					include: /src/,
 					loader: 'string-replace-loader',
 					options: {
-						multiple: [
+						multiple: isWechat ? [
               // 组件绑定父组件事件
               {
                 search: '\@bind',
-								replace: 'bind:',
-								flags: 'g',
+                replace: 'bind:',
+                flags: 'g',
               }
-            ]
-          }
-        } : {
-					test: /\.(html|wxml|axml)$/,
-					include: /src/,
-					loader: 'string-replace-loader',
-					options: {
-						multiple: [
-               // 自定义组件绑定父组件事件
-               {
+            ] : isAlipay ? [
+              // 自定义组件绑定父组件事件
+              {
                 search: '\@bind',
-								replace: 'on',
-								flags: 'g',
+                replace: 'on',
+                flags: 'g',
               },
               // 一般组件
-							{
-								search: 'wx:if',
-								replace: 'a:if',
-								flags: 'g',
-							},
-							{
-								search: 'wx:elif',
-								replace: 'a:elif',
-								flags: 'g',
-							},
-							{
-								search: 'wx:else',
-								replace: 'a:else',
-								flags: 'g',
-							},
-							{
-								search: 'wx:for',
-								replace: 'a:for',
-								flags: 'g',
-							},
-							{
-								search: 'wx:for-index',
-								replace: 'a:for-index',
-								flags: 'g',
-							},
-							{
-								search: 'wx:for-item',
-								replace: 'a:for-item',
-								flags: 'g',
-							},
-							{
-								search: 'bindtap',
-								replace: 'onTap',
-								flags: 'g',
-							},
-							{
-								search: 'catchtap',
-								replace: 'catchTap',
-								flags: 'g',
-							},
-							{
-								search: 'bindinput',
-								replace: 'onInput',
-								flags: 'g',
-							},
-							{
-								search: 'bindchange',
-								replace: 'onChange',
-								flags: 'g',
-							},
-							{
-								search: 'bindfocus',
-								replace: 'onFocus',
-								flags: 'g',
-							},
-							{
-								search: 'bindsubmit',
-								replace: 'onSubmit',
-								flags: 'g',
-							},
-							{
-								search: 'bindscrolltolower',
-								replace: 'onScrollToLower',
-								flags: 'g',
+              {
+                search: 'wx:',
+                replace: 'a:',
+                flags: 'g',
               },
               {
-								search: 'bindscroll',
-								replace: 'onScroll',
-								flags: 'g',
+                search: 'bindtap',
+                replace: 'onTap',
+                flags: 'g',
+              },
+              {
+                search: 'catchtap',
+                replace: 'catchTap',
+                flags: 'g',
+              },
+              {
+                search: 'bindinput',
+                replace: 'onInput',
+                flags: 'g',
+              },
+              {
+                search: 'bindchange',
+                replace: 'onChange',
+                flags: 'g',
+              },
+              {
+                search: 'bindfocus',
+                replace: 'onFocus',
+                flags: 'g',
+              },
+              {
+                search: 'bindsubmit',
+                replace: 'onSubmit',
+                flags: 'g',
+              },
+              {
+                search: 'bindscrolltolower',
+                replace: 'onScrollToLower',
+                flags: 'g',
+              },
+              {
+                search: 'bindscroll',
+                replace: 'onScroll',
+                flags: 'g',
               },
               {
                 search: 'bindtouchstart',
                 replace: 'onTouchStart',
-								flags: 'g',
+                flags: 'g',
               },
               {
                 search: 'bindtouchmove',
                 replace: 'onTouchMove',
-								flags: 'g',
+                flags: 'g',
               }
-						],
-					},
-				},
+            ] : [
+              // 组件绑定父组件事件
+              {
+                search: '\@bind',
+                replace: 'bind:',
+                flags: 'g',
+              },
+              // 一般组件
+              {
+                search: 'wx:',
+                replace: 's-',
+                flags: 'g',
+              },
+            ]
+          },
+        },
 			],
 		},
 		plugins: [
@@ -310,7 +298,8 @@ export default (env = {}) => {
 			new DefinePlugin({
 				__DEV__: isDev,
 				__WECHAT__: isWechat,
-				__ALIPAY__: isAlipay,
+        __ALIPAY__: isAlipay,
+        __BAIDU__: isBaidu,
 				// wx: isWechat ? 'wx' : 'my',
 				// my: isWechat ? 'wx' : 'my',
 			}),

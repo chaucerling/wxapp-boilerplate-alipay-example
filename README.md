@@ -57,11 +57,14 @@
 ## TODO
 
 - [x] 完善自定义组件封装
+- [ ] 兼容百度小程序
 - [ ] 编译不同的 app.json , 支持其他参数
 - [ ] 修复 weappx 在支付宝中使用的问题
 - [ ] 支付宝自定义组件样式添加 scope
 
 ## issues
+
+支付宝：
 
 - 支付宝自定义组件样式没有单独的作用域，[主题](https://openclub.alipay.com/read.php?tid=11844&fid=65)
 - 支付宝 navigator 组件的 open-type 设置为 navigateBack ，不生效, [主题](https://openclub.alipay.com/read.php?tid=12013&fid=65)

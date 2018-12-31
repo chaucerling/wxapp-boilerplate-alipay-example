@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack --watch",
     "start:alipay": "webpack --watch --env.target=Alipay",
+    "start:baidu": "webpack --watch --env.target=Baidu",
     "webpack": "webpack",
     "deprecate:watch": "echo \"'watch' is deprecated, please use 'start' instead\"",
     "watch": "run-s deprecate:watch start",
@@ -14,6 +15,7 @@
     "prebuild": "rimraf dist",
     "build:wechat": "cross-env NODE_ENV=production webpack --env.target=Wechat --env.min",
     "build:alipay": "cross-env NODE_ENV=production webpack --env.target=Alipay --env.min",
+    "build:baidu": "cross-env NODE_ENV=production webpack --env.target=Baidu --env.min",
     "build": "run-s build:*",
     "lint:watch": "cross-env LINT=true run-s start",
     "lint:build": "cross-env LINT=true run-s build",
