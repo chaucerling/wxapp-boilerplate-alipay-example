@@ -21,14 +21,14 @@ function defaultVal(type) {
 }
 
 const miniappComponent = function (options) {
-	if (__WECHAT__) {
+	if (__WECHAT__ || __BAIDU__) {
 		let created = options.created || noop;
 		options.created = function (...args) {
 			let triggerEvent = this.triggerEvent;
 			this.triggerEvent = (eventName, eventDetail = {}, eventOption = {}) => {
 				eventName = eventName.replace(/^(on|bind)/, '');
 				eventName = eventName.charAt(0).toUpperCase() + eventName.slice(1);
-				triggerEvent(eventName, eventDetail, eventOption);
+				triggerEvent.call(this, eventName, eventDetail, eventOption);
 			};
 			created.call(this, ...args);
 		};
@@ -106,6 +106,9 @@ const miniappBehavior = function (options) {
 		return Behavior(miniappComponent(options));
 	}
 	if (__ALIPAY__) {
+		return miniappComponent(options);
+	}
+	if (__BAIDU__) {
 		return miniappComponent(options);
 	}
 };

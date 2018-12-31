@@ -5,6 +5,7 @@
     "__DEV__": true,
     "__WECHAT__": true,
     "__ALIPAY__": true,
+    "__BAIDU__": true,
     "App": true,
     "Page": true,
     "Component": true,
