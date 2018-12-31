@@ -6,7 +6,6 @@ let component = miniappComponent({
 	properties: {
 		show: {
 			type: Boolean,
-			value: false,
 		},
 		name: {
 			type: String,

@@ -5,6 +5,21 @@
 
 function noop() {}
 
+function defaultVal(type) {
+	const types = [String, Number, Boolean, Object, Array, null];
+	if (types.indexOf(type) < 0) throw new TypeError(`Type ${type} is not supported.`);
+
+	// Handle simple types (primitives and plain function/object)
+	switch (type) {
+		case Boolean : return false;
+		case null : return null;
+		case Number : return 0;
+		case Object : return {};
+		case String : return '';
+		case Array : return [];
+	}
+}
+
 const miniappComponent = function (options) {
 	if (__WECHAT__) {
 		let created = options.created || noop;
@@ -69,13 +84,18 @@ const miniappComponent = function (options) {
 		newOptions.didUpdate = moved;
 		newOptions.didUnmount = detached;
 		newOptions.methods = options.methods;
-		newOptions.data = options.methods;
+		newOptions.data = options.data;
 		newOptions.mixins = options.behaviors;
 		newOptions.props = {};
 		Object.keys(options.properties || {}).map((k) => {
-			newOptions.props[k] = options.properties[k].value;
+			if (options.properties[k].value !== undefined) {
+				newOptions.props[k] = options.properties[k].value;
+			}
+			else {
+				newOptions.props[k] = defaultVal(options.properties[k].type);
+			}
 		});
-		// console.log(options);
+		console.log(newOptions);
 		// Component(options);
 		return newOptions;
 	}

@@ -19,7 +19,7 @@
 
 ## 自定义组件封装
 
-`src/utils/component.js` 是对小程序自定义组件调用参数的封装，目前只是简单封装了 `props` 和 `triggerEvent`
+`src/utils/component.js` 是对小程序自定义组件调用参数的封装，目前封装了 `props`, `lifetimes`, `pageLifetimes`, `behaviors`, `this.id`, `this.triggerEvent`, `this.data`, `this.properties`
 
 ## 编译不同的 app.json
 
@@ -29,7 +29,7 @@
 
 目前只是用作配置 TabBar 的图片，计划可以支持 `pages` 等参数
 
-# wxml 和 json 文件的关键字转换
+## wxml 和 json 文件的关键字转换
 
 使用替换文本的方式在编译时转换, 原生组件的事件 key 和 json 文件的 key 能自动转换
 
@@ -56,7 +56,7 @@
 
 ## TODO
 
-- [ ] 完善自定义组件封装
+- [x] 完善自定义组件封装
 - [ ] 编译不同的 app.json , 支持其他参数
 - [ ] 修复 weappx 在支付宝中使用的问题
 - [ ] 支付宝自定义组件样式添加 scope
