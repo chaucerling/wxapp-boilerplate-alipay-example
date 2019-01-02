@@ -50,6 +50,9 @@ const miniapp = {
 			}
 			return my.httpRequest(params);
 		}
+		if (__BAIDU__) {
+			return swan.request(options);
+		}
 	},
 	getLocation: (options) => {
 		if (__WECHAT__) {
@@ -61,6 +64,9 @@ const miniapp = {
 			options.type = 0; // 高德地图用的是 gcj02
 			return my.getLocation(options);
 		}
+		if (__BAIDU__) {
+			return swan.getLocation(options);
+		}
 	},
 	openLocation: (options) => {
 		if (__WECHAT__) {
@@ -69,6 +75,9 @@ const miniapp = {
 		if (__ALIPAY__) {
 			options.scale = options.scale || 18;
 			return my.openLocation(options);
+		}
+		if (__BAIDU__) {
+			return swan.openLocation(options);
 		}
 	},
 	getSystemInfo: (options) => {
@@ -82,13 +91,19 @@ const miniapp = {
 			};
 			return my.getSystemInfo(options);
 		}
+		if (__BAIDU__) {
+			return swan.getSystemInfo(options);
+		}
 	},
-	getSystemInfoSync: () => {
+	getSystemInfoSync: (options) => {
 		if (__WECHAT__) {
-			return wx.getSystemInfoSync();
+			return wx.getSystemInfoSync(options);
 		}
 		if (__ALIPAY__) {
-			return mySystemInfo2wx(my.getSystemInfoSync());
+			return mySystemInfo2wx(my.getSystemInfoSync(options));
+		}
+		if (__BAIDU__) {
+			return swan.getSystemInfoSync(options);
 		}
 	},
 	getStorage: (options) => {
@@ -108,6 +123,9 @@ const miniapp = {
 			};
 			return my.getStorage(options);
 		}
+		if (__BAIDU__) {
+			return swan.getStorage(options);
+		}
 	},
 	getStorageSync: (key) => {
 		if (__WECHAT__) {
@@ -117,6 +135,9 @@ const miniapp = {
 			return my.getStorageSync({
 				key: key,
 			}).data;
+		}
+		if (__BAIDU__) {
+			return swan.getStorageSync(key);
 		}
 	},
 	setStorage: (options) => {
