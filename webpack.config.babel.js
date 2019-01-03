@@ -41,12 +41,15 @@ export default (env = {}) => {
     case 'Wechat':
       appJsonFile = 'app.json';
       dist = 'wechat';
+      break;
     case 'Alipay':
       appJsonFile = 'alipay.json';
       dist = 'alipay';
+      break;
     case 'Baidu':
       appJsonFile = 'app.json';
       dist = 'baidu';
+      break;
   }
   // 复制 json 配置里的图片
   if (isAlipay) {
@@ -55,11 +58,11 @@ export default (env = {}) => {
   }
 
 	const relativeFileLoader = (ext = '[ext]') => {
-    const namePrefix = isWechat ? '' : '[path]';
+    const namePrefix = isWechat || isBaidu ? '' : '[path]';
 		return {
 			loader: 'file-loader',
 			options: {
-				useRelativePath: isWechat,
+				useRelativePath: isWechat || isBaidu,
 				name: `${namePrefix}[name].${ext}`,
 				context: srcDir,
 			},
@@ -70,8 +73,8 @@ export default (env = {}) => {
 		entry: {
 			app: [
 				// add promise polyfill into wechat mini program
-				isWechat &&
-					`es6-promise/dist/es6-promise.auto${isDev ? '.min' : ''}.js`,
+				// isWechat &&
+					// `es6-promise/dist/es6-promise.auto${isDev ? '.min' : ''}.js`,
 
 				'./src/app.js',
 			].filter(Boolean),
@@ -147,7 +150,7 @@ export default (env = {}) => {
           include: [resolve('src', appJsonFile)],
           loader: 'file-loader',
           options: {
-            useRelativePath: isWechat,
+            useRelativePath: isWechat || isBaidu,
             name: '[path]app.json',
             context: srcDir,
           },

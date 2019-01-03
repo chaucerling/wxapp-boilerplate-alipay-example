@@ -21,5 +21,17 @@ let page = connector.connectPage({
 		const { inputValue } = this.data;
 		app.dispatcher.count.sub(inputValue);
 	},
+	showModal() {
+		miniapp.pro.showModal({
+			title: 'title',
+			content: 'content',
+		}).then((result) => {
+			console.log(result);
+		}, () => {
+			console.warn('fail');
+		}).catch((error) => {
+			console.error(error);
+		});
+	},
 });
 Page(page);
