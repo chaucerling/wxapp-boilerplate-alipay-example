@@ -31,9 +31,9 @@ const copyPatterns = []
 export default (env = {}) => {
 	const min = env.min;
 	const target = env.target || 'Wechat';
-	const isWechat = env.target === 'Wechat';
-  const isAlipay = env.target === 'Alipay';
-  const isBaidu = env.target === 'Baidu';
+	const isWechat = target === 'Wechat';
+  const isAlipay = target === 'Alipay';
+  const isBaidu = target === 'Baidu';
 
   // 根据 target 编译不同的 json 文件
   let appJsonFile, dist;
@@ -73,8 +73,8 @@ export default (env = {}) => {
 		entry: {
 			app: [
 				// add promise polyfill into wechat mini program
-				// isWechat &&
-					// `es6-promise/dist/es6-promise.auto${isDev ? '.min' : ''}.js`,
+				isWechat &&
+					`es6-promise/dist/es6-promise.auto${isDev ? '.min' : ''}.js`,
 
 				'./src/app.js',
 			].filter(Boolean),
