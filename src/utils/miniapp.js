@@ -147,6 +147,9 @@ const miniapp = {
 		if (__ALIPAY__) {
 			return my.setStorage(options);
 		}
+		if (__BAIDU__) {
+			return swan.setStorage(options);
+		}
 	},
 	setStorageSync: (key, data) => {
 		if (__WECHAT__) {
@@ -158,6 +161,9 @@ const miniapp = {
 				data: data,
 			});
 		}
+		if (__BAIDU__) {
+			return swan.setStorageSync(key, data);
+		}
 	},
 	removeStorage: (options) => {
 		if (__WECHAT__) {
@@ -165,6 +171,9 @@ const miniapp = {
 		}
 		if (__ALIPAY__) {
 			return my.removeStorage(options);
+		}
+		if (__BAIDU__) {
+			return swan.removeStorage(options);
 		}
 	},
 	removeStorageSync: (key) => {
@@ -176,6 +185,9 @@ const miniapp = {
 				key: key,
 			});
 		}
+		if (__BAIDU__) {
+			return swan.removeStorageSync(key);
+		}
 	},
 	clearStorage: (options) => {
 		if (__WECHAT__) {
@@ -183,6 +195,9 @@ const miniapp = {
 		}
 		if (__ALIPAY__) {
 			return my.clearStorage(options);
+		}
+		if (__BAIDU__) {
+			return swan.clearStorage(options);
 		}
 	},
 	clearStorageSync: () => {
@@ -192,6 +207,9 @@ const miniapp = {
 		if (__ALIPAY__) {
 			return my.clearStorageSync();
 		}
+		if (__BAIDU__) {
+			return swan.clearStorageSync();
+		}
 	},
 	redirectTo: (options) => {
 		if (__WECHAT__) {
@@ -199,6 +217,9 @@ const miniapp = {
 		}
 		if (__ALIPAY__) {
 			return my.redirectTo(options);
+		}
+		if (__BAIDU__) {
+			return swan.redirectTo(options);
 		}
 	},
 	navigateTo: (options) => {
@@ -208,6 +229,9 @@ const miniapp = {
 		if (__ALIPAY__) {
 			return my.navigateTo(options);
 		}
+		if (__BAIDU__) {
+			return swan.navigateTo(options);
+		}
 	},
 	navigateBack: (options) => {
 		if (__WECHAT__) {
@@ -215,6 +239,9 @@ const miniapp = {
 		}
 		if (__ALIPAY__) {
 			return my.navigateBack(options);
+		}
+		if (__BAIDU__) {
+			return swan.navigateBack(options);
 		}
 	},
 	showModal: (options) => {
@@ -239,6 +266,9 @@ const miniapp = {
 				return my.confirm(params);
 			}
 		}
+		if (__BAIDU__) {
+			return swan.showModal(options);
+		}
 	},
 	showToast: (options) => {
 		if (__WECHAT__) {
@@ -256,6 +286,9 @@ const miniapp = {
 			}
 			return my.showToast(params);
 		}
+		if (__BAIDU__) {
+			return swan.showToast(options);
+		}
 	},
 	hideToast: () => {
 		if (__WECHAT__) {
@@ -264,12 +297,18 @@ const miniapp = {
 		if (__ALIPAY__) {
 			return my.hideToast();
 		}
+		if (__BAIDU__) {
+			return swan.hideToast();
+		}
 	},
 	showShareMenu: (options) => {
 		if (__WECHAT__) {
 			return wx.showShareMenu(options);
 		}
 		if (__ALIPAY__) {
+			return null;
+		}
+		if (__BAIDU__) {
 			return null;
 		}
 	},
@@ -283,6 +322,9 @@ const miniapp = {
 			});
 			return my.makePhoneCall(params);
 		}
+		if (__BAIDU__) {
+			return swan.makePhoneCall(options);
+		}
 	},
 	setNavigationBarTitle: (options) => {
 		if (__WECHAT__) {
@@ -290,6 +332,9 @@ const miniapp = {
 		}
 		if (__ALIPAY__) {
 			return my.setNavigationBar(options);
+		}
+		if (__BAIDU__) {
+			return swan.setNavigationBarTitle(options);
 		}
 	},
 	setNavigationBarColor: (options) => {
@@ -299,6 +344,9 @@ const miniapp = {
 		if (__ALIPAY__) {
 			console.warn('alipay api: setNavigationBar 不支持 frontColor, animation');
 			return my.setNavigationBar(options);
+		}
+		if (__BAIDU__) {
+			return swan.setNavigationBarColor(options);
 		}
 	},
 	previewImage: (options) => {
@@ -312,6 +360,9 @@ const miniapp = {
 			// console.log(options.current);
 			return my.previewImage(options);
 		}
+		if (__BAIDU__) {
+			return swan.previewImage(options);
+		}
 	},
 	showTabBar: (options) => {
 		if (__WECHAT__) {
@@ -319,6 +370,9 @@ const miniapp = {
 		}
 		if (__ALIPAY__) {
 			return my.showTabBar(options);
+		}
+		if (__BAIDU__) {
+			return swan.showTabBar(options);
 		}
 	},
 	hideTabBar: (options) => {
@@ -328,6 +382,9 @@ const miniapp = {
 		if (__ALIPAY__) {
 			return my.hideTabBar(options);
 		}
+		if (__BAIDU__) {
+			return swan.hideTabBar(options);
+		}
 	},
 	switchTab: (options) => {
 		if (__WECHAT__) {
@@ -335,6 +392,9 @@ const miniapp = {
 		}
 		if (__ALIPAY__) {
 			return my.switchTab(options);
+		}
+		if (__BAIDU__) {
+			return swan.switchTab(options);
 		}
 	},
 	reLaunch: (options) => {
@@ -344,6 +404,9 @@ const miniapp = {
 		if (__ALIPAY__) {
 			return my.reLaunch(options);
 		}
+		if (__BAIDU__) {
+			return swan.reLaunch(options);
+		}
 	},
 	createAnimation: (options) => {
 		if (__WECHAT__) {
@@ -351,6 +414,9 @@ const miniapp = {
 		}
 		if (__ALIPAY__) {
 			return my.createAnimation(options);
+		}
+		if (__BAIDU__) {
+			return swan.createAnimation(options);
 		}
 	},
 	// TODO: 业务相关的api
@@ -361,6 +427,9 @@ const miniapp = {
 		if (__ALIPAY__) {
 			return my.getAuthCode(options);
 		}
+		if (__BAIDU__) {
+			return swan.login(options);
+		}
 	},
 	checkSession: (options) => {
 		if (__WECHAT__) {
@@ -369,6 +438,9 @@ const miniapp = {
 		if (__ALIPAY__) {
 			return null;
 		}
+		if (__BAIDU__) {
+			return swan.checkSession(options);
+		}
 	},
 	getUserInfo: (options) => {
 		if (__WECHAT__) {
@@ -376,6 +448,9 @@ const miniapp = {
 		}
 		if (__ALIPAY__) {
 			return my.getAuthUserInfo(options);
+		}
+		if (__BAIDU__) {
+			return swan.getUserInfo(options);
 		}
 	},
 	requestPayment: (options) => {
@@ -393,6 +468,9 @@ const miniapp = {
 				success(res);
 			};
 			return my.tradePay(options);
+		}
+		if (__BAIDU__) {
+			return null;
 		}
 	},
 };
