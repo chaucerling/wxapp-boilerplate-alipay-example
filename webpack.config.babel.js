@@ -18,7 +18,7 @@ const { NODE_ENV, LINT } = process.env;
 const isDev = NODE_ENV !== 'production';
 const shouldLint = !!LINT && LINT !== 'false';
 const srcDir = resolve('src');
-const cdnPrefix = `https://${cdnConfig.tasks[0].bucket}/${cdnConfig.tasks[0].miniapp}`
+const cdnPrefix = `https://${cdnConfig.tasks[0].bucket}.b0.upaiyun.com/${cdnConfig.tasks[0].prefix}`
 const enableCdn = true;
 
 const copyPatterns = []

@@ -81,7 +81,14 @@ const miniappComponent = function (options) {
 			attached.call(this, ...args);
 			ready.call(this, ...args);
 		};
-		newOptions.didUpdate = moved;
+		newOptions.didUpdate = function (prevProps, prevData) {
+			this.data = {
+				...this.data,
+				...this.props,
+			};
+			this.properties = this.data;
+		};
+		// newOptions.didUpdate = moved;
 		newOptions.didUnmount = detached;
 		newOptions.methods = options.methods;
 		newOptions.data = options.data;
