@@ -41,10 +41,9 @@ const miniapp = {
 					headers: 'header',
 					status: 'statusCode',
 				});
-
 				success(result);
 			};
-			if (params.method === 'POST') {
+			if (params.method.toUpperCase() === 'POST') {
 				let data = params.data || {};
 				params.data = JSON.stringify(data);
 			}
