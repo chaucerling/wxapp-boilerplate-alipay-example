@@ -6,7 +6,7 @@
 function noop() {}
 
 function defaultVal(type) {
-	const types = [String, Number, Boolean, Object, Array, null];
+	const types = [String, Number, Boolean, Object, Array, null, Function];
 	if (types.indexOf(type) < 0) throw new TypeError(`Type ${type} is not supported.`);
 
 	// Handle simple types (primitives and plain function/object)
@@ -17,6 +17,7 @@ function defaultVal(type) {
 		case Object : return {};
 		case String : return '';
 		case Array : return [];
+		case Function : return () => {};
 	}
 }
 
@@ -28,7 +29,7 @@ const miniappComponent = function (options) {
 			this.triggerEvent = (eventName, eventDetail = {}, eventOption = {}) => {
 				eventName = eventName.replace(/^(on|bind)/, '');
 				eventName = eventName.charAt(0).toUpperCase() + eventName.slice(1);
-				triggerEvent(eventName, eventDetail, eventOption);
+				triggerEvent.call(this, eventName, eventDetail, eventOption);
 			};
 			created.call(this, ...args);
 		};
@@ -50,13 +51,12 @@ const miniappComponent = function (options) {
 		}
 		let pageOnShow = pageLifetimes.show || noop;
 		let pageOnHide = pageLifetimes.hide || noop;
+		newOptions.onInit = function (...args) {
+			created.call(this, ...args);
+			attached.call(this, ...args);
+		};
 		newOptions.didMount = function (...args) {
 			let componentThis = this;
-			this.data = {
-				...this.data,
-				...this.props,
-			};
-			this.properties = this.data;
 			this.id = this.$id;
 			this.triggerEvent = (eventName, eventDetail, eventOption) => {
 				if (eventName.search(/^on/) < 0) {
@@ -77,8 +77,6 @@ const miniappComponent = function (options) {
 				pageOnHide.call(componentThis);
 				onHide.call(this, ...pageArgs);
 			};
-			created.call(this, ...args);
-			attached.call(this, ...args);
 			ready.call(this, ...args);
 		};
 		newOptions.didUpdate = function (prevProps, prevData) {
@@ -102,7 +100,6 @@ const miniappComponent = function (options) {
 				newOptions.props[k] = defaultVal(options.properties[k].type);
 			}
 		});
-		console.log(newOptions);
 		// Component(options);
 		return newOptions;
 	}
